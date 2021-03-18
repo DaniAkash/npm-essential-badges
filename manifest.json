@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "NPM Essential Badges",
+  "version": "1.0",
+
+  "description": "Adds essential badges to the npm packages page",
+
+  "icons": {
+    "48": "src/icons/border-48.png"
+  },
+
+  "browser_action": {
+    "default_popup": "src/popup/popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.npmjs.com/package/*"],
+      "js": ["/src/content/content.ts"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "permissions": ["storage"]
+}
