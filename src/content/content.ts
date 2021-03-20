@@ -1,4 +1,6 @@
+import { browser } from "webextension-polyfill-ts";
 import { badgesList } from "../data/badgesList";
+import { TOGGLE_OPTION } from "../utils/events";
 import { getAllSelectedBadges } from "../utils/getAllSelectedBadges";
 
 const applyBadges = () => {
@@ -87,3 +89,12 @@ if (window.document.readyState === "loading") {
 } else {
   applyBadges();
 }
+
+/**
+ * User changed preferences
+ */
+browser.runtime.onMessage.addListener((message: { eventName: string }) => {
+  if (message.eventName === TOGGLE_OPTION) {
+    applyBadges();
+  }
+});

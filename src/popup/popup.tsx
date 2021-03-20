@@ -49,7 +49,7 @@ const ItemComponent: FC<{ item: SectionItemProp }> = ({ item }) => {
   useEffect(() => {
     isBadgeSelected(item.key)
       .then((result) => setIsSelected(result))
-      .catch(console.error);
+      .catch(() => null);
   }, []);
 
   const toggleSelect = () => {

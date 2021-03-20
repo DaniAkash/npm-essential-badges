@@ -1,4 +1,5 @@
 import { browser } from "webextension-polyfill-ts";
+import { sendToggleMessage } from "./sendToggleMessage";
 
 export const selectBadge = (badgeKey: string): Promise<void> => {
   return new Promise((res, rej) => {
@@ -6,7 +7,10 @@ export const selectBadge = (badgeKey: string): Promise<void> => {
       .set({
         [badgeKey]: badgeKey,
       })
-      .then(() => res())
+      .then(() => {
+        sendToggleMessage();
+        res();
+      })
       .catch(rej);
   });
 };
