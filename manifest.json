@@ -6,7 +6,9 @@
   "description": "Adds essential badges to the npm packages page",
 
   "icons": {
-    "48": "src/icons/border-48.png"
+    "16": "src/icons/npm.png",
+    "48": "src/icons/npm.png",
+    "128": "src/icons/npm.png"
   },
 
   "browser_action": {
