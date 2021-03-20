@@ -1,4 +1,5 @@
 import { badgesList } from "../data/badgesList";
+import { getAllSelectedBadges } from "../utils/getAllSelectedBadges";
 
 const applyBadges = () => {
   const $title = window.document.querySelector("span[title]");
@@ -12,34 +13,48 @@ const applyBadges = () => {
       const $h2Tag = $title.parentElement;
       const $divTag = $h2Tag?.parentElement;
 
-      const selectedItems = Object.values(badgesList);
+      getAllSelectedBadges().then((selectedBadgeKeys) => {
+        const allItems = Object.values(badgesList);
 
-      const selectedBadges = selectedItems.reduce((acc, each) => {
-        const newArray = Object.values(each);
-        acc = [...acc, ...newArray.filter((each) => each.isSelected)];
-        return acc;
-      }, [] as { name: string; url: string; isSelected: boolean }[]);
+        const selectedBadges = allItems.reduce((acc, each) => {
+          const badgeKeys = Object.keys(each);
 
-      $divTag?.insertAdjacentHTML(
-        "afterbegin",
-        `
-        <div id="essential-badges">
-          ${selectedBadges
-            .map((each) => {
-              return `<img
-            src="${each.url.replace(":packageName", packageName || "")}"
-            style="padding-left: 8px;padding-top: 5px;"
-          />`;
-            })
-            .join("")}
-        </div>
-        `
-      );
+          const selectedKeys = badgeKeys.filter(
+            (each) => selectedBadgeKeys.indexOf(each) > -1
+          );
+
+          // @ts-ignore
+          const badges = selectedKeys.map((selectedKey) => each[selectedKey]);
+
+          acc = [...acc, ...badges];
+
+          return acc;
+        }, [] as { name: string; url: string }[]);
+
+        $divTag?.insertAdjacentHTML(
+          "afterbegin",
+          `
+          <div id="essential-badges">
+            ${selectedBadges
+              .map((each) => {
+                return `<img
+              src="${each.url.replace(":packageName", packageName || "")}"
+              style="padding-left: 8px;padding-top: 5px;"
+            />`;
+              })
+              .join("")}
+          </div>
+          `
+        );
+      });
     }, 1000);
   }
 };
 
-window.addEventListener("popstate", function (event) {
+/**
+ * User moves through the page with back / forward button
+ */
+window.addEventListener("popstate", function () {
   applyBadges();
 });
 
@@ -62,6 +77,9 @@ window.addEventListener("click", (event) => {
   }
 });
 
+/**
+ * Page has loaded for the first time
+ */
 if (window.document.readyState === "loading") {
   window.document.addEventListener("DOMContentLoaded", () => {
     applyBadges();
