@@ -8,7 +8,7 @@ import {
   SectionListRenderItem,
   SectionListData,
   CheckBox,
-} from "react-native-web";
+} from "react-native";
 import { badgesList } from "../data/badgesList";
 import { isBadgeSelected } from "../utils/isBadgeSelected";
 import { selectBadge } from "../utils/selectBadge";
