@@ -6,9 +6,9 @@
   "description": "Adds essential badges to the npm packages page",
 
   "icons": {
-    "16": "src/icons/npm.png",
-    "48": "src/icons/npm.png",
-    "128": "src/icons/npm.png"
+    "16": "src/icons/npm-square.png",
+    "48": "src/icons/npm-square.png",
+    "128": "src/icons/npm-square.png"
   },
 
   "browser_action": {
@@ -26,7 +26,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "npm-essential-badges@2dapps.xyz",
-      "strict_min_version": "53"
+      "strict_min_version": "53.0"
     }
   },
 
