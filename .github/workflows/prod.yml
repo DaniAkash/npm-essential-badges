@@ -2,7 +2,7 @@ name: prod
 on:
   push:
     branches:
-      - main
+      - master
     tags:
       - "!*"
 
