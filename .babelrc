@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "@parcel/babel-preset-env",
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    "@parcel/babel-plugin-transform-runtime",
+    ["react-native-web", { "commonjs": true }]
+  ]
+}
