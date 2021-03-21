@@ -1,0 +1,36 @@
+name: prod
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "!*"
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+      - run: npx yarn
+      - run: npx yarn lint
+
+  build:
+    needs: [lint]
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12.x
+      - run: npx yarn
+      - run: npx yarn build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: extension-build
+          path: dist/webext-prod/
