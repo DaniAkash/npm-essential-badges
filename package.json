@@ -4,7 +4,8 @@
     "start": "parcel manifest.json --host localhost --target webext-dev",
     "start:chrome": "concurrently \"yarn start\" \"web-ext run -t chromium --source-dir ./dist/\"",
     "start:firefox": "concurrently \"yarn start --no-hmr\" \"web-ext run --source-dir ./dist/\"",
-    "build": "rm -rf dist/ && parcel build manifest.json --target webext-prod"
+    "build": "rm -rf dist/ && parcel build manifest.json --target webext-prod",
+    "lint": "tsc --noEmit"
   },
   "targets": {
     "webext-dev": {
