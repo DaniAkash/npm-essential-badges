@@ -120,7 +120,25 @@ const App = () => {
         onChangeText={updateInputValue}
       />
       <SectionList
-        sections={sectionData}
+        sections={
+          !inputValue
+            ? sectionData
+            : sectionData.map((each) => {
+                return {
+                  title: each.title,
+                  data: each.data.filter((badge) => {
+                    return (
+                      badge.key
+                        .toLowerCase()
+                        .includes(inputValue.toLowerCase()) ||
+                      badge.name
+                        .toLowerCase()
+                        .includes(inputValue.toLowerCase())
+                    );
+                  }),
+                };
+              })
+        }
         keyExtractor={(item, index) => item.name + index}
         renderItem={SectionItem}
         renderSectionHeader={!inputValue ? SectionHeader : undefined}
